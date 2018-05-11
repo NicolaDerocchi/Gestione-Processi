@@ -1,5 +1,6 @@
+import java.io.Serializable;
 
-public class Processo 
+public class Processo implements Serializable
 {
 
 	private int ID;
@@ -12,7 +13,15 @@ public class Processo
 		this.setID(ID);
 		this.setNome(nome);
 		this.setPCB(PCB);
-		this.setPriorita(priorita);
+		if (priorita>=0 && priorita<=5) 
+		{
+			this.priorita=priorita;
+		}else
+		{
+			this.priorita=0;
+		}
+
+
 	}
 	
 	public Processo()
@@ -86,7 +95,14 @@ public class Processo
 
 	public void setPriorita(int priorita) 
 	{
-		this.priorita = priorita;
+		if (priorita>=0 && priorita<=5) 
+		{
+			this.setPriorita(priorita);
+		}else
+		{
+			this.priorita=0;
+		}
+
 	}
 	
 	

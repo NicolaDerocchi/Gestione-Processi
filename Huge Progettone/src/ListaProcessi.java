@@ -1,5 +1,7 @@
+import java.io.*;
 
-public class ListaProcessi 
+
+public class ListaProcessi implements Serializable
 {
 
 		private Nodo head;
@@ -174,6 +176,43 @@ public class ListaProcessi
 			return p.getInfo();		
 		}
 		
+		public void salvaProcessi(String nomeFile) throws IOException
+		{
+			ObjectOutputStream out =new ObjectOutputStream ( new BufferedOutputStream (new FileOutputStream (nomeFile)));
+						
+			out.writeObject(this);
+			out.close();
+			
+		}
+		
+		public ListaProcessi caricaProcessi (String nomeFile) throws IOException, ClassNotFoundException 
+		{
+			ObjectInputStream in =new ObjectInputStream ( new BufferedInputStream (new FileInputStream (nomeFile)));
+			
+			ListaProcessi lista = new ListaProcessi();
+			
+			lista = (ListaProcessi) in.readObject();
+			in.close();
+
+			return lista;
+		}
+		
+		public void ordinaLista() throws Processi_Exception
+		{
+			for (int i = 0; i < 6; i++) 
+			{
+				for (int j = 1; j < getElementi(); j++) 
+				{
+					
+					if (getProcesso(j).getPriorita()==i) 
+					{
+						inserisciInTesta(getProcesso(j));
+						eliminaInPosizione(j+1);
+					}
+					
+				}
+			}
+		}
 }
 
 
